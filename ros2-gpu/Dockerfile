@@ -26,15 +26,20 @@ RUN apt update && apt upgrade -y && \
     terminator \
     vim \
     wget \
-    xterm
+    xterm \
+    turtlebot3 \
+    turtlebot3_simulations \
 
 USER $USERNAME
 RUN mkdir -p $HOME/raspicat_ws/src && \
     cd $HOME/raspicat_ws/src && \
     git clone -b ros2 https://github.com/rt-net/raspicat_ros.git && \
     git clone -b ros2 https://github.com/rt-net/raspicat_description.git && \
-    git clone -b ros2 https://github.com/rt-net/raspicat_sim.git && \
+    git clone -b feat/gnss https://github.com/makotoyoshigoe/raspicat_sim.git && \
     git clone -b ros2 https://github.com/rt-net/raspicat_slam_navigation.git && \
+    git clone https://github.com/ryuichiueda/emcl2_ros2.git/ && \
+    git clone -b dev https://github.com/kei487/value_iteration2.git && \
+    git clone https://github.com/kei487/value_iteration2_exp.git && \
     ./raspicat_sim/raspicat_gazebo/scripts/download_gazebo_models.sh && \
     rosdep update && \
     rosdep install -r -y --from-paths --ignore-src ./
